@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imunisasi Online - Layanan Imunisasi Gratis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Info Section */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: #f8f9fa;
+            padding: 3rem 0;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Schedule Table */
+        .schedule-table {
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .whatsapp-float {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">💉 Imunisasi Online</div>
+            <ul>
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#info">Informasi</a></li>
+                <li><a href="#daftar">Daftar</a></li>
+                <li><a href="#jadwal">Jadwal</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Selamat Datang di Imunisasi Online</h1>
+        <p>Layanan Pendaftaran Imunisasi Gratis untuk Keluarga Indonesia</p>
+        <a href="#daftar" class="btn">Daftar Sekarang</a>
+    </section>
+
+    <!-- Info Section -->
+    <section class="container" id="info">
+        <h2 class="section-title">Mengapa Imunisasi Penting?</h2>
+        <div class="info-cards">
+            <div class="card">
+                <div class="card-icon">🛡️</div>
+                <h3>Perlindungan Optimal</h3>
+                <p>Melindungi anak dari berbagai penyakit berbahaya dan mematikan</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">👨‍👩‍👧‍👦</div>
+                <h3>Gratis untuk Semua</h3>
+                <p>Program imunisasi gratis dari pemerintah untuk seluruh keluarga Indonesia</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📅</div>
+                <h3>Jadwal Teratur</h3>
+                <p>Jadwal imunisasi terorganisir sesuai usia dan kebutuhan</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚕️</div>
+                <h3>Tenaga Profesional</h3>
+                <p>Dilayani oleh tenaga kesehatan profesional dan berpengalaman</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section" id="daftar">
+        <div class="container">
+            <h2 class="section-title">Daftar Imunisasi Online</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="namaAnak">Nama Anak *</label>
+                    <input type="text" id="namaAnak" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tanggalLahir">Tanggal Lahir *</label>
+                    <input type="date" id="tanggalLahir" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="jenisKelamin">Jenis Kelamin *</label>
+                    <select id="jenisKelamin" required>
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="namaOrtu">Nama Orang Tua *</label>
+                    <input type="text" id="namaOrtu" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="noTelp">Nomor Telepon/WhatsApp *</label>
+                    <input type="tel" id="noTelp" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="alamat">Alamat Lengkap *</label>
+                    <textarea id="alamat" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="jenisImunisasi">Jenis Imunisasi *</label>
+                    <select id="jenisImunisasi" required>
+                        <option value="">Pilih Jenis Imunisasi</option>
+                        <option value="BCG">BCG</option>
+                        <option value="Hepatitis B">Hepatitis B</option>
+                        <option value="Polio">Polio</option>
+                        <option value="DPT">DPT</option>
+                        <option value="Campak">Campak</option>
+                        <option value="MMR">MMR</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit">Kirim Pendaftaran</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section class="container" id="jadwal">
+        <h2 class="section-title">Jadwal Imunisasi Dasar</h2>
+        <div class="schedule-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Jenis Imunisasi</th>
+                        <th>Usia</th>
+                        <th>Dosis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hepatitis B</td>
+                        <td>0-7 hari</td>
+                        <td>1 kali</td>
+                    </tr>
+                    <tr>
+                        <td>BCG & Polio 1</td>
+                        <td>1 bulan</td>
+                        <td>1 kali</td>
+                    </tr>
+                    <tr>
+                        <td>DPT-HB-Hib 1 & Polio 2</td>
+                        <td>2 bulan</td>
+                        <td>1 kali</td>
+                    </tr>
+                    <tr>
+                        <td>DPT-HB-Hib 2 & Polio 3</td>
+                        <td>3 bulan</td>
+                        <td>1 kali</td>
+                    </tr>
+                    <tr>
+                        <td>DPT-HB-Hib 3 & Polio 4</td>
+                        <td>4 bulan</td>
+                        <td>1 kali</td>
+                    </tr>
+                    <tr>
+                        <td>Campak/MR</td>
+                        <td>9 bulan</td>
+                        <td>1 kali</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="container" id="kontak">
+        <h2 class="section-title">Hubungi Kami</h2>
+        <div class="card">
+            <h3>Informasi Kontak</h3>
+            <p><strong>Pencetus Program:</strong> Nisimawati Harefa</p>
+            <p><strong>WhatsApp:</strong> 082275581763</p>
+            <p><strong>Email:</strong> imunisasionline@gmail.com</p>
+            <p style="margin-top: 1rem;">Untuk informasi lebih lanjut atau konsultasi, silakan hubungi kami melalui WhatsApp.</p>
+        </div>
+    </section>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/6282275581763?text=Halo,%20saya%20ingin%20informasi%20tentang%20imunisasi%20online" class="whatsapp-float" target="_blank">
+        <span style="font-size: 1.5rem;">📱</span> Chat WhatsApp
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Imunisasi Online - Pencetus: Nisimawati Harefa</p>
+        <p>Layanan Imunisasi Gratis untuk Keluarga Indonesia</p>
+    </footer>
+
+    <script>
+        // Form Submission Handler
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const namaAnak = document.getElementById('namaAnak').value;
+            const tanggalLahir = document.getElementById('tanggalLahir').value;
+            const jenisKelamin = document.getElementById('jenisKelamin').value;
+            const namaOrtu = document.getElementById('namaOrtu').value;
+            const noTelp = document.getElementById('noTelp').value;
+            const alamat = document.getElementById('alamat').value;
+            const jenisImunisasi = document.getElementById('jenisImunisasi').value;
+            
+            // Create WhatsApp message
+            const message = `*PENDAFTARAN IMUNISASI ONLINE*%0A%0A` +
+                          `Nama Anak: ${namaAnak}%0A` +
+                          `Tanggal Lahir: ${tanggalLahir}%0A` +
+                          `Jenis Kelamin: ${jenisKelamin}%0A` +
+                          `Nama Orang Tua: ${namaOrtu}%0A` +
+                          `No. Telepon: ${noTelp}%0A` +
+                          `Alamat: ${alamat}%0A` +
+                          `Jenis Imunisasi: ${jenisImunisasi}`;
+            
+            // Redirect to WhatsApp
+            window.open(`https://wa.me/6282275581763?text=${message}`, '_blank');
+            
+            // Reset form
+            this.reset();
+            alert('Terima kasih! Anda akan diarahkan ke WhatsApp untuk menyelesaikan pendaftaran.');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
